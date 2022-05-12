@@ -9,6 +9,7 @@
 #include "Portal.h"
 
 #include "Collision.h"
+#include "Map.h"
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
@@ -224,7 +225,6 @@ int CMario::GetAniIdBig()
 
 	return aniId;
 }
-
 void CMario::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
@@ -240,7 +240,6 @@ void CMario::Render()
 	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
-	
 	DebugOutTitle(L"Coins: %d", coin);
 }
 

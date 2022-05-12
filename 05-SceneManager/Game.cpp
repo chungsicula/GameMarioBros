@@ -7,6 +7,7 @@
 #include "Texture.h"
 #include "Animations.h"
 #include "PlayScene.h"
+#include "IntroScene.h"
 
 CGame * CGame::__instance = NULL;
 
@@ -464,8 +465,8 @@ void CGame::_ParseSection_SCENES(string line)
 	}
 	else
 	{
-		//LPSCENE scene = new IntroScene(id, path);
-	//	scenes[id] = scene;
+		LPSCENE scene = new IntroScene(id, path);
+	scenes[id] = scene;
 		DebugOut(L"[ERROR] Unknown game scene: %s\n");
 	}
 }
