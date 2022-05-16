@@ -87,6 +87,9 @@
     <ClCompile Include="IntroScene.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="Koopas.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -168,6 +171,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="IntroScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Koopas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -154,6 +154,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Mario.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Koopas.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="ObjectRender.h" />
