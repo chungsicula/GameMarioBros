@@ -1,6 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "FireBullet.h"
 
 #define FIRE_PIRANHAPLANT_UP_HEIGHT 16
 
