@@ -19,10 +19,11 @@ void Camera::Update(DWORD dt)
 
 	cx = MarioX;
 	cy = MarioY;
+
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
 	cy -= game->GetBackBufferHeight() / 2;
-	if (CGame::GetInstance()->current_scene != 1) // add current_scene to public
+	if (CGame::GetInstance()->current_scene != 1)
 	{
 		if (cx < 0) cx = 0;
 		if (cx + game->GetBackBufferWidth() >= 2816.0f)cx = 2816.0f - game->GetBackBufferWidth();

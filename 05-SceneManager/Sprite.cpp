@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "Camera.h"
 
 CSprite::CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex)
 {
@@ -18,8 +19,8 @@ CSprite::CSprite(int id, int left, int top, int right, int bottom, LPTEXTURE tex
 	sprite.TexCoord.x = this->left / texWidth;
 	sprite.TexCoord.y = this->top / texHeight;
 
-	int spriteWidth = (this->right - this->left + 1);
-	int spriteHeight = (this->bottom - this->top + 1);
+	int spriteWidth = (this->right - this->left);
+	int spriteHeight = (this->bottom - this->top);
 
 	sprite.TexSize.x = spriteWidth / texWidth;
 	sprite.TexSize.y = spriteHeight / texHeight;
@@ -34,13 +35,13 @@ void CSprite::Draw(float x, float y)
 {
 	CGame* g = CGame::GetInstance();
 	float cx, cy;
-	g->GetCamPos(cx, cy);
+	Camera::GetInstance()->GetCamPos(cx, cy);
 
 	cx = (FLOAT)floor(cx);
 	cy = (FLOAT)floor(cy);
 
 	D3DXMATRIX matTranslation;
-	
+
 	x = (FLOAT)floor(x);
 	y = (FLOAT)floor(y);
 

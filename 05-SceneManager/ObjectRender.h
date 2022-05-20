@@ -81,7 +81,18 @@ public:
 			if (CAnimations::GetInstance()->Get(ID_ANI_MARIO_BROS3_NUMBER_TYPE))
 				CAnimations::GetInstance()->Get(ID_ANI_MARIO_BROS3_NUMBER_TYPE)->Render(x, y);
 		}
-		
+		else if (type == MARIO_BROS3_CHOOSE_PLAYER_TYPE)
+		{
+			if (CGame::GetInstance()->playernumber == 1)
+			{
+				if (CSprites::GetInstance()->Get(ID_SPRITE_MARIO_BROS3_CHOOSE_PLAYER1_TYPE))
+					CSprites::GetInstance()->Get(ID_SPRITE_MARIO_BROS3_CHOOSE_PLAYER1_TYPE)->Draw(x, y + START_Y);
+			}
+			else {
+				if (CSprites::GetInstance()->Get(ID_SPRITE_MARIO_BROS3_CHOOSE_PLAYER2_TYPE))
+					CSprites::GetInstance()->Get(ID_SPRITE_MARIO_BROS3_CHOOSE_PLAYER2_TYPE)->Draw(x, y + START_Y);
+			}
+		}
 	}
 };
 

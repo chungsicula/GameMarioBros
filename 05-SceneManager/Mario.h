@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "QuestionBrick.h"
+#include "FirePiranhaPlant.h"
 #include "Koopas.h"
 
+#include "MarioTail.h"
 #include "Animation.h"
 #include "Animations.h"
 
 #include "debug.h"
-#include "MarioTail.h"
 
 #define MARIO_GO_HIDDEN_MAP_SPEED 0.05f
 
@@ -291,7 +293,7 @@ public:
 		coin = 0;
 		speedStack = 0;
 		AttackTime = SpeedStackTime = 0;
-		//tail = new MarioTail();
+		tail = new MarioTail();
 		level = MARIO_LEVEL_RACOON;
 		StartY = 0;
 		FallingTime = effectTime = 0;
@@ -364,7 +366,7 @@ public:
 	void HandleMarioFalling();
 	void HandleMarioKickKoopas();
 	void HandleMarioHoldingKoopas();
-	//void HandleRacoonAttack(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void HandleRacoonAttack(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void HandleMarioTransformRacoon();
 	void HandleMarioUntouchable();
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);

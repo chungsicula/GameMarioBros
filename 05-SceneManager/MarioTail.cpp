@@ -1,6 +1,9 @@
 #include "MarioTail.h"
 #include "Goomba.h"
+#include "QuestionBrick.h"
 #include "Koopas.h"
+#include "BreakBrick.h"
+#include "FirePiranhaPlant.h"
 #include "PiranhaPlant.h"
 void MarioTail::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -21,10 +24,18 @@ void MarioTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (dynamic_cast<CGoomba*>(coObjects->at(i)))
 				OnCollisionWithGoomba(coObjects->at(i));
-			
+			else if (dynamic_cast<QuestionBrick*>(coObjects->at(i)))
+				OnCollisionWithQuestionBrick(coObjects->at(i));
 			else if (dynamic_cast<Koopas*>(coObjects->at(i)))
 				OnCollisionWithKoopas(coObjects->at(i));
-			
+			else if (coObjects->at(i)->objType == OBJECT_TYPE_BREAKABLE_BRICK)
+				OnCollisionWithBreakableBrick(coObjects->at(i));
+			else if (dynamic_cast<FirePiranhaPlant*>(coObjects->at(i)))
+			{
+				FirePiranhaPlant* fireplant = dynamic_cast<FirePiranhaPlant*>(coObjects->at(i));
+				if (!fireplant->isInPipe)
+					fireplant->Delete();
+			}
 			else if (dynamic_cast<PiranhaPlant*>(coObjects->at(i)))
 			{
 				PiranhaPlant* plant = dynamic_cast<PiranhaPlant*>(coObjects->at(i));
@@ -51,7 +62,14 @@ void MarioTail::OnCollisionWithGoomba(LPGAMEOBJECT& obj)
 	IsActive = false;
 }
 
-
+void MarioTail::OnCollisionWithQuestionBrick(LPGAMEOBJECT& obj)
+{
+	QuestionBrick* qbrick = dynamic_cast<QuestionBrick*>(obj);
+	if (!qbrick->innitItemSuccess) {
+		qbrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+	}
+	IsActive = false;
+}
 
 void MarioTail::OnCollisionWithKoopas(LPGAMEOBJECT& obj)
 {
@@ -62,3 +80,15 @@ void MarioTail::OnCollisionWithKoopas(LPGAMEOBJECT& obj)
 	IsActive = false;
 }
 
+void MarioTail::OnCollisionWithBreakableBrick(LPGAMEOBJECT& obj)
+{
+	BreakableBrick* breakableBrick = dynamic_cast<BreakableBrick*>(obj);
+	if (breakableBrick->haveButton && !breakableBrick->buttonCreated)
+	{
+		breakableBrick->SetState(BREAKABLE_BRICK_STATE_CREATE_BUTTON);
+	}
+	else if (!breakableBrick->haveButton) {
+		breakableBrick->SetState(BREAKABLE_BRICK_STATE_BREAK_DOWN);
+	}
+	IsActive = false;
+}

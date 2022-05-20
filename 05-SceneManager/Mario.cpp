@@ -7,13 +7,19 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "ColorBox.h"
 #include "Leaf.h"
+#include "ButtonP.h"
 
 #include "PiranhaPlant.h"
+#include "BreakBrick.h"
 #include "Collision.h"
-#include "Mushroom.h"
-#include "Camera.h"
+#include "PortalPipe.h"
+#include "Pipe.h"
 
+#include "LastItemObject.h"
+#include "Camera.h"
+//#include "HUD.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!goInHidden && !goOutHidden)
@@ -37,9 +43,11 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		canGotoHiddenMap = false;
 		isOnPlatform = false;
 		CCollision::GetInstance()->Process(this, dt, coObjects);
-		//HandleRacoonAttack(dt, coObjects);
+		HandleRacoonAttack(dt, coObjects);
 
-		
+		//HUD::GetInstance()->speedStack = speedStack;
+		//HUD::GetInstance()->MarioIsFlying = isFlying;
+		Camera::GetInstance()->GetMarioInfo(vx, vy, x, y, isOnPlatform, isFlying, IsInHiddenMap);
 		HandleMarioHoldingKoopas();
 		HandleMarioCannotGoOutMap();
 		for (int i = 0; i < coObjects->size(); i++)
@@ -83,7 +91,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
-		//if (e->ny < 0) { isOnPlatform = true; CGame::GetInstance()->pipeX = e->obj->x; }
+		if (e->ny < 0) { isOnPlatform = true; CGame::GetInstance()->pipeX = e->obj->x; }
 	}
 	else
 		if (e->nx != 0 && e->obj->IsBlocking())
@@ -97,13 +105,24 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
-	
+	else if (dynamic_cast<Pipe*>(e->obj))
+		OnCollisionWithSpecialPipe(e);
+	else if (dynamic_cast<QuestionBrick*>(e->obj))
+		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<Koopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<FirePiranhaPlant*>(e->obj))
+		OnCollisionWithPlant(e);
 	else if (dynamic_cast<PiranhaPlant*>(e->obj))
 		OnCollisionWithPlant(e);
 	else if (dynamic_cast<Mushroom*>(e->obj) || dynamic_cast<Leaf*>(e->obj))
 		OnCollisionWithItem(e);
+	else if (dynamic_cast<BreakableBrick*>(e->obj))
+		OnCollisionWithBreakableBrick(e);
+	else if (dynamic_cast<ButtonP*>(e->obj))
+		OnCollisionWithButtonP(e);
+	else if (dynamic_cast<LastItemObject*>(e->obj))
+		OnCollisionWithLastItemObject(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -152,7 +171,15 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
+{
+	QuestionBrick* QBrick = dynamic_cast<QuestionBrick*>(e->obj);
 
+	//Check qbrick
+	if (!QBrick->innitItemSuccess && QBrick->GetState() != QUESTION_BRICK_STATE_START_INNIT) {
+		if (e->ny > 0)QBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+	}
+}
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
@@ -245,7 +272,67 @@ void CMario::OnCollisionWithPlant(LPCOLLISIONEVENT e)
 	}
 }
 
+void CMario::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e)
+{
+	BreakableBrick* breakableBrick = dynamic_cast<BreakableBrick*>(e->obj);
+	if (breakableBrick->objType != OBJECT_TYPE_COIN)
+	{
+		if (e->ny > 0)
+		{
+			if (level == MARIO_LEVEL_SMALL)
+			{
+				if (breakableBrick->y == breakableBrick->startY)
+					if (!breakableBrick->buttonCreated)
+						e->obj->SetState(BREAKABLE_BRICK_STATE_IS_UP);
+			}
+			else {
+				if (breakableBrick->haveButton && !breakableBrick->buttonCreated)
+				{
+					breakableBrick->SetState(BREAKABLE_BRICK_STATE_CREATE_BUTTON);
+				}
+				else if (!breakableBrick->haveButton) {
+					e->obj->SetState(BREAKABLE_BRICK_STATE_BREAK_DOWN);
+				}
+			}
+		}
+	}
+	else {
+		OnCollisionWithCoin(e);
+	}
+}
 
+void CMario::OnCollisionWithButtonP(LPCOLLISIONEVENT e)
+{
+	ButtonP* button = dynamic_cast<ButtonP*>(e->obj);
+	if (e->ny < 0 && !button->isPushed)
+	{
+		button->SetState(BUTTON_P_STATE_PUSHED);
+		CGame::GetInstance()->buttonIsPushed = true;
+	}
+}
+
+void CMario::OnCollisionWithSpecialPipe(LPCOLLISIONEVENT e)
+{
+	Pipe* pipe = dynamic_cast<Pipe*>(e->obj);
+	if (pipe->PipeType == SPECIAL_PIPE && e->ny < 0)
+	{
+		StartY = y + MARIO_BIG_BBOX_HEIGHT;
+		pipeX = pipe->x;
+		canGotoHiddenMap = true;
+	}
+	else if (pipe->PipeType == SPECIAL_PIPE_HIDDEN_MAP_PIPE && e->ny > 0) {
+		StartY = pipe->y;
+		canGotoHiddenMap = true;
+		pipeX = pipe->x;
+	}
+}
+
+void CMario::OnCollisionWithLastItemObject(LPCOLLISIONEVENT e)
+{
+	LastItemObject* LastItem = dynamic_cast<LastItemObject*>(e->obj);
+	if (!LastItem->IsChosen)
+		LastItem->IsChosen = true;
+}
 
 
 //
@@ -733,8 +820,8 @@ void CMario::Render()
 	int aniId = -1;
 	if (!IsAttack && level == MARIO_LEVEL_RACOON)
 	{
-		animations->Get(ID_ANI_RACOON_ATTACK_LEFT);
-		animations->Get(ID_ANI_RACOON_ATTACK_RIGHT);
+		animations->Get(ID_ANI_RACOON_ATTACK_LEFT)->ResetAni();
+		animations->Get(ID_ANI_RACOON_ATTACK_RIGHT)->ResetAni();
 	}
 	if (state == MARIO_STATE_DIE)
 		aniId = ID_ANI_MARIO_DIE;
@@ -889,7 +976,7 @@ void CMario::SetState(int state)
 		if (level == MARIO_LEVEL_SMALL)
 			koopasY = y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 		else koopasY = y;
-	//	koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
+		koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
 		koopasHold->SetState(KOOPAS_STATE_INSHELL_ATTACK);
 		break;
 	case MARIO_STATE_GO_IN_HIDDEN_MAP:
@@ -1016,13 +1103,30 @@ void CMario::HandleMarioHoldingKoopas()
 			koopasHold->SetPosition(koopasX - MARIO_BIG_BBOX_WIDTH, koopasY);
 		if (koopasHold->GetState() == KOOPAS_STATE_WALKING)
 		{
-			//->y -= (KOOPAS_BBOX_HEIGHT - MARIO_BIG_BBOX_HEIGHT) / 2;
+			koopasHold->y -= (KOOPAS_BBOX_HEIGHT - MARIO_BIG_BBOX_HEIGHT) / 2;
 			isHoldingKoopas = false;
 			HandleMarioIsAttacked();
 		}
 	}
 }
 
+void CMario::HandleRacoonAttack(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	if (IsAttack)
+	{
+		if (nx > 0)
+			tail->SetPosition(x + MARIO_BIG_BBOX_WIDTH / 2 + TAIL_BBOX_WIDTH / 2, y + TAIL_BBOX_HEIGHT * 2);
+		else
+			tail->SetPosition(x - MARIO_BIG_BBOX_WIDTH / 2 - TAIL_BBOX_WIDTH / 2, y + TAIL_BBOX_HEIGHT * 2);
+		tail->nx = nx;
+
+		tail->Update(dt, coObjects);
+		if (GetTickCount64() - AttackTime >= RACOON_ATTACK_TIME)
+		{
+			IsAttack = false;
+		}
+	}
+}
 
 void CMario::HandleMarioTransformRacoon()
 {
@@ -1132,7 +1236,10 @@ void CMario::HandleMarioGoInHiddenMap(DWORD dt)
 			StartY = 0;
 			Camera::GetInstance()->GetMarioInfo(vx, vy, x, y, isOnPlatform, isFlying, IsInHiddenMap);
 		}
-		
+		if (HIDDEN_MAP_OUT_POS_Y - y >= PORTAL_OF_PIPE_BBOX_SIZE * 2)
+		{
+			goOutHidden = false;
+		}
 	}
 	y += vy * dt;
 }

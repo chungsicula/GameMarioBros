@@ -16,7 +16,8 @@ using namespace std;
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
-
+#define INTRO_SCENE 1
+#define HIDDEN_SCENE 3
 
 
 /*
@@ -54,17 +55,25 @@ class CGame
 
 	unordered_map<int, LPSCENE> scenes;
 
-
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
 public:
-	// Init DirectX, Sprite Handler
-	void Init(HWND hWnd, HINSTANCE hInstance);
 	int next_scene = -1;
 	int current_scene;
+	float pipeX;
+	bool buttonIsPushed = false;
+	bool resetLastItem = false;
+	bool SkipIntro = false;
+	int playernumber = 1;
+
+	// Init DirectX, Sprite Handler
+	void Init(HWND hWnd, HINSTANCE hInstance);
 
 	bool IsSwitchScene = false;
+
+	int CheckSceneType() { return current_scene; };
+
 	//
 	// Draw a portion or ALL the texture at position (x,y) on the screen. (x,y) is at the CENTER of the image
 	// rect : if NULL, the whole texture will be drawn
@@ -104,9 +113,6 @@ public:
 	static CGame* GetInstance();
 
 	void SetPointSamplerState();
-
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
-	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void Load(LPCWSTR gameFile);

@@ -18,27 +18,33 @@ class CGameObject
 {
 protected:
 
-	float x; 
-	float y;
 
 	float vx;
 	float vy;
 
-	
 
 	int state;
 
-	bool isDeleted; 
+	bool isDeleted;
 
-public: 
-	int nx; bool isitem;
+
+public:
+	int nx;
+	float x;
+	float y;
+
+	bool IsAllowRender, IsAllowUpdate;
+
+	bool isitem;
+	int objType;
+
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
+	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
 	int GetState() { return this->state; }
-	virtual void Delete() { isDeleted = true;  }
+	virtual void Delete() { isDeleted = true; }
 	bool IsDeleted() { return isDeleted; }
 
 	void RenderBoundingBox();
@@ -47,7 +53,7 @@ public:
 	CGameObject(float x, float y) :CGameObject() { this->x = x; this->y = y; }
 
 
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
+	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) = 0;
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {};
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
@@ -61,12 +67,14 @@ public:
 	virtual void OnNoCollision(DWORD dt) {};
 
 	// When collision with an object has been detected (triggered by CCollision::Process)
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e) {};
-	
+	virtual void OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt) {};
+
 	// Is this object blocking other object? If YES, collision framework will automatically push the other object
 	virtual int IsBlocking() { return 1; }
-
+	virtual int IsBlockingX() { return 1; }
+	virtual int IsBlockingY() { return 1; }
+	virtual void DirectBlocking(int& l, int& t, int& r, int& b) { l = 1; t = 1; b = 1; r = 1; }
 	~CGameObject();
 
-	static bool IsDeleted(const LPGAMEOBJECT &o) { return o->isDeleted; }
+	static bool IsDeleted(const LPGAMEOBJECT& o) { return o->isDeleted; }
 };

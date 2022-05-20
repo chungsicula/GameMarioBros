@@ -11,8 +11,16 @@
 #include "Platform.h"
 #include "Camera.h"
 #include "Map.h"
+#include "ColorBox.h"
+#include "Koopas.h"
+#include "Pipe.h"
+#include "BreakBrick.h"
+#include "PortalPipe.h"
+#include "PiranhaPlant.h"
+#include "LastItemObject.h"
 
 #include "SampleKeyEventHandler.h"
+//#include "HUD.h"
 using namespace std;
 
 
@@ -144,32 +152,32 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_GOOMBA: {
 		int goombaLevel = atoi(tokens[3].c_str());
-		//obj = new CGoomba(x, y, goombaLevel);
+		obj = new CGoomba(x, y, goombaLevel);
 		break;
 	}
 	case OBJECT_TYPE_KOOPAS: {
 		int koopasLevel = atoi(tokens[3].c_str());
-		//obj = new Koopas(x, y, koopasLevel);
+		obj = new Koopas(x, y, koopasLevel);
 		break;
 	}
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_QUESTIONBRICK: {
 		int item = atoi(tokens[3].c_str());
-	//	obj = new QuestionBrick(x, y, item);
+		obj = new QuestionBrick(x, y, item);
 		//Items.push_back(item);
 		break;
 	}
 	case OBJECT_TYPE_FIREPIRANHAPLANT: {
 		int type = atoi(tokens[3].c_str());
-		//obj = new FirePiranhaPlant(x, y, type);
+		obj = new FirePiranhaPlant(x, y, type);
 		break; }
-	//case OBJECT_TYPE_PIRANHAPLANT: {obj = new PiranhaPlant(x, y); break; }
+	case OBJECT_TYPE_PIRANHAPLANT: {obj = new PiranhaPlant(x, y); break; }
 	case OBJECT_TYPE_INNIT_COIN: {
 		int type = atoi(tokens[3].c_str());
-	//	obj = new CCoin(x, y, type);
+		obj = new CCoin(x, y, type);
 		break;
 	}
-	/*case OBJECT_TYPE_PIPE: {
+	case OBJECT_TYPE_PIPE: {
 		int width = atoi(tokens[3].c_str());
 		int height = atoi(tokens[4].c_str());
 		int allowRender = atoi(tokens[5].c_str());
@@ -180,8 +188,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		else
 			Pipes2.push_back(obj);
 		break;
-	}*/
-	/*case OBJECT_TYPE_BREAKBLEBRICK: {
+	}
+	case OBJECT_TYPE_BREAKBLEBRICK: {
 		bool HaveButton = false;
 		int Item = atoi(tokens[3].c_str());
 		if (Item == 1)
@@ -196,7 +204,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		}
 		else obj = new BreakableBrick(x, y, HaveButton);
 		break;
-	}*/
+	}
 	case OBJECT_TYPE_PLATFORM:
 	{
 
@@ -215,7 +223,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	}
-	/*case OBJECT_TYPE_COLORBOX:
+	case OBJECT_TYPE_COLORBOX:
 	{
 		int width, height;
 		width = atoi(tokens[3].c_str());
@@ -235,7 +243,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		obj = new LastItemObject(x, y);
 		break;
-	}*/
+	}
 
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
@@ -317,7 +325,7 @@ void CPlayScene::Load()
 	f.close();
 	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
 	Camera::GetInstance()->SetCamPos(0, 240);
-	//CGame::GetInstance()->buttonIsPushed = false;
+	CGame::GetInstance()->buttonIsPushed = false;
 }
 
 void CPlayScene::Update(DWORD dt)
@@ -331,12 +339,12 @@ void CPlayScene::Update(DWORD dt)
 	{
 		if (objects[i] != NULL)
 		{
-			/*if (dynamic_cast<QuestionBrick*>(objects[i]))
+			if (dynamic_cast<QuestionBrick*>(objects[i]))
 			{
 				QuestionBrick* Qbrick = dynamic_cast<QuestionBrick*>(objects[i]);
 				if (!Qbrick->innitItemSuccess)
 					AddItemToQBrick(Qbrick, i);
-			}*/
+			}
 
 			coObjects.push_back(objects[i]);
 		}
@@ -346,7 +354,7 @@ void CPlayScene::Update(DWORD dt)
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		/*if (dynamic_cast<FirePiranhaPlant*>(objects[i]))
+		if (dynamic_cast<FirePiranhaPlant*>(objects[i]))
 		{
 			FirePiranhaPlant* Fplant = dynamic_cast<FirePiranhaPlant*>(objects[i]);
 			Fplant->GetEnemyPos(player->x, player->y);
@@ -355,7 +363,7 @@ void CPlayScene::Update(DWORD dt)
 		else {
 			if (Camera::GetInstance()->IsInCam(objects[i]->x, objects[i]->y) || dynamic_cast<CMario*>(objects[i]))
 				objects[i]->Update(dt, &coObjects);
-		}*/
+		}
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -369,7 +377,7 @@ void CPlayScene::Update(DWORD dt)
 void CPlayScene::Render()
 {
 	map->Draw();
-	/*for (int i = 1; i < objects.size(); i++)
+	for (int i = 1; i < objects.size(); i++)
 	{
 		if (!dynamic_cast<Pipe*>(objects[i]))
 			objects[i]->Render();
@@ -377,13 +385,13 @@ void CPlayScene::Render()
 	for (int i = 0; i < Pipes.size(); i++)
 	{
 		Pipes[i]->Render();
-	}*/
+	}
 	objects[0]->Render();
-	/*for (int i = 0; i < Pipes2.size(); i++)
+	for (int i = 0; i < Pipes2.size(); i++)
 	{
 		Pipes2[i]->Render();
 	}
-	HUD::GetInstance()->Draw();*/
+	//HUD::GetInstance()->Draw();
 }
 
 /*

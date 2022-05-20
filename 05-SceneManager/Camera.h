@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <Windows.h>
 #include "Utils.h"
 #define SCREEN_CAMERA_WIDTH 320
