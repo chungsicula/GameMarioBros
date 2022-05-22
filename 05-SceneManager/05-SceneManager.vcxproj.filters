@@ -138,9 +138,6 @@
     <ClCompile Include="ObjectRender.cpp">
       <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>Object</Filter>
-    </ClCompile>
     <ClCompile Include="FireBullet.cpp">
       <Filter>Object</Filter>
     </ClCompile>
@@ -276,9 +273,6 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="FireBullet.h">
-      <Filter>Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="PiranhaPlantT.h">

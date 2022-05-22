@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-class ColorBox :
+class ColorBox : //container
 	public CGameObject
 {
 	int Width;
