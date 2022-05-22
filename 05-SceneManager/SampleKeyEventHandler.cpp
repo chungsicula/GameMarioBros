@@ -74,7 +74,7 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	else {
 		switch (KeyCode)
 		{
-		case DIK_S:
+		case DIK_Q:
 			CGame::GetInstance()->SkipIntro = true;
 			break;
 		case DIK_UP:

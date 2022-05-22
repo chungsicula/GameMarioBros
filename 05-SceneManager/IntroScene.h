@@ -177,7 +177,7 @@ public:
 		}
 	}
 	void Clear();
-	void PurgeDeletedObjects();
+//	void PurgeDeletedObjects();
 
 };
 

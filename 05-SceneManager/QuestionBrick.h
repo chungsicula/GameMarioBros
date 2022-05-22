@@ -55,6 +55,10 @@ public:
 			{
 				coin = new CCoin(x, y - 16, 1);
 				coin->SetSpeed(0, -COIN_UP_VY);
+				
+					coin->SetSpeed(0, COIN_UP_VY);
+				
+			
 				coinUpTime = GetTickCount64();
 			}
 			else if (GetTickCount64() - coinUpTime >= 700) {
