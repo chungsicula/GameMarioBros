@@ -29,7 +29,8 @@ public:
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	void RenderBoundingBox();
+	void RenderBoundingBox(); int IsBlocking() { return 1; };
+	int IsCollidable() { return 1; }
 };
 
 typedef CPlatform* LPPLATFORM;
