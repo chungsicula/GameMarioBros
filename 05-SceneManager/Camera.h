@@ -36,7 +36,7 @@ public:
 	}
 	bool IsInCam(float objX, float objY)
 	{
-		return !(objX < cam_x - 100 || objX - cam_x>SCREEN_CAMERA_WIDTH + 100 || objY < cam_y - 100 || objY - cam_y > SCREEN_CAMERA_HEIGHT + 100);
+		return !(objX < cam_x - 200 || objX - cam_x>SCREEN_CAMERA_WIDTH + 200 || objY < cam_y - 200 || objY - cam_y > SCREEN_CAMERA_HEIGHT + 200);
 	}
 	void SetCamPos(float x, float y) {
 		cam_x = x;

@@ -51,6 +51,12 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 			case DIK_3:
 				mario->SetLevel(MARIO_LEVEL_RACOON);
 				break;
+			case DIK_B:
+				mario->SetState(MARIO_STATE_FLYING);
+				break;
+			case DIK_N:
+				mario->SetState(MARIO_STATE_HOLD_KOOPAS);
+				break;
 			case DIK_0:
 				mario->SetState(MARIO_STATE_DIE);
 				break;
