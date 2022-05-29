@@ -1,6 +1,7 @@
 #include "Koopas.h"
 #include "debug.h"
 #include "Goomba.h"
+#include "QuestionBrick.h"
 void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (!isHold)
@@ -50,6 +51,17 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 							goomba->SetState(GOOMBA_STATE_DIEBYSHELL);
 						}
 					}
+				}
+				else if (dynamic_cast<QuestionBrick*>(coObjects->at(i)))
+				{
+					QuestionBrick* questionBrick = dynamic_cast<QuestionBrick*>(coObjects->at(i));
+					if (state == KOOPAS_STATE_INSHELL_ATTACK)
+					{
+						if (!questionBrick->innitItemSuccess) {
+							questionBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+						}
+					}
+
 				}
 			}
 		}
@@ -104,10 +116,13 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 		}
 	}
 	
-	/*else if (dynamic_cast<CGoomba*>(e->obj))
-		OnCollisionWithGoomba(e);*/
+	else if (dynamic_cast<QuestionBrick*>(e->obj))
+		OnCollisionWithQuestionBrick(e);
 	else if (dynamic_cast<Koopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+
 	
 }
 
@@ -137,7 +152,21 @@ void Koopas::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 }
 
 
+void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
+{
+	QuestionBrick* QBrick = dynamic_cast<QuestionBrick*>(e->obj);
 
+	//Check qbrick
+	
+	if (state == KOOPAS_STATE_INSHELL_ATTACK)
+	{
+		if (QBrick->innitItemSuccess==false && QBrick->GetState() != QUESTION_BRICK_STATE_START_INNIT) {
+			if (e->nx < 0)QBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+		}
+	}
+	
+	
+}
 void Koopas::GetKoopasAni(int& IdAni)
 {
 	if (state == KOOPAS_STATE_WALKING)
