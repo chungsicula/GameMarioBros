@@ -30,7 +30,8 @@ public:
 	CCoin* coin;
 	bool InitCoin;
 	ULONGLONG coinUpTime;
-
+	virtual int IsCollidable() { return 1; };
+	virtual int IsBlocking() { return 0; }
 	QuestionBrick(float x, float y, int item) : CGameObject(x, y) {
 		startY = y;
 		InitCoin = readyInnitItem = innitItemSuccess = false;
@@ -49,6 +50,7 @@ public:
 		if (vy > 0 && y >= startY) {
 			SetState(QUESTION_BRICK_STATE_INNITED);
 		}
+
 		if (InitCoin)
 		{
 			if (coinUpTime == 0)

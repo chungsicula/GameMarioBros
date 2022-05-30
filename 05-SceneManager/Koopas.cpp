@@ -60,6 +60,8 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						if (!questionBrick->innitItemSuccess) {
 							questionBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
 						}
+						//	questionBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+						
 					}
 
 				}
@@ -160,8 +162,8 @@ void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 	
 	if (state == KOOPAS_STATE_INSHELL_ATTACK)
 	{
-		if (QBrick->innitItemSuccess==false && QBrick->GetState() != QUESTION_BRICK_STATE_START_INNIT) {
-			if (e->nx < 0)QBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+		if (!QBrick->innitItemSuccess) {
+			QBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
 		}
 	}
 	
