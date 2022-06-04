@@ -30,8 +30,7 @@ public:
 	CCoin* coin;
 	bool InitCoin;
 	ULONGLONG coinUpTime;
-	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 0; }
+
 	QuestionBrick(float x, float y, int item) : CGameObject(x, y) {
 		startY = y;
 		InitCoin = readyInnitItem = innitItemSuccess = false;
@@ -40,7 +39,7 @@ public:
 		coin = new CCoin(0, 0, 1);
 	}
 	void Render();
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects = NULL) {
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
 
 		if (startY - y > QUESTION_BRICK_UP)
 		{
@@ -50,17 +49,21 @@ public:
 		if (vy > 0 && y >= startY) {
 			SetState(QUESTION_BRICK_STATE_INNITED);
 		}
-
 		if (InitCoin)
 		{
 			if (coinUpTime == 0)
 			{
-				coin = new CCoin(x, y - 50, 1);
-				coin->SetSpeed(0, -COIN_UP_VY);
-				
+				coin = new CCoin(x, y - 16, 1);
+				if (startY - y > QUESTION_BRICK_UP) {
+					coin->y = y + 30; coin->SetSpeed(0, -COIN_UP_VY);
+				}
+				else {
+					coin->y = y - 50;
 					coin->SetSpeed(0, COIN_UP_VY);
+				}
 				
-			
+				// coin->SetSpeed(0, COIN_UP_VY);
+				
 				coinUpTime = GetTickCount64();
 			}
 			else if (GetTickCount64() - coinUpTime >= 700) {

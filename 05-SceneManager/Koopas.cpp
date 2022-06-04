@@ -36,7 +36,7 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			boxHidden->Update(dt, coObjects);
 			float boxHiddenX, boxHiddenY;
 			boxHidden->GetPosition(boxHiddenX, boxHiddenY);
-			if (boxHiddenY - y >= KOOPAS_NAVBOX_DISTANCE)vx = -vx;
+			if (boxHiddenY - y >= 1)vx = -vx;
 			
 
 		}
