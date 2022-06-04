@@ -31,7 +31,12 @@ void Koopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += ay * dt;
 		if (state == KOOPAS_STATE_WALKING && level == SMART_KOOPAS)
 		{
-			
+			if (vx > 0)boxHidden->SetPosition(x + KOOPAS_BBOX_WIDTH / 2 + BOX_HIDDEN_BBOX_WIDTH / 2, y);
+			else boxHidden->SetPosition(x - KOOPAS_BBOX_WIDTH / 2 - BOX_HIDDEN_BBOX_WIDTH / 2, y);
+			boxHidden->Update(dt, coObjects);
+			float boxHiddenX, boxHiddenY;
+			boxHidden->GetPosition(boxHiddenX, boxHiddenY);
+			if (boxHiddenY - y >= KOOPAS_NAVBOX_DISTANCE)vx = -vx;
 			
 
 		}
@@ -82,7 +87,7 @@ void Koopas::Render()
 	if (CAnimations::GetInstance()->Get(aniId))
 		CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	else RenderBoundingBox();
-	//NavBox->Render();
+	boxHidden->Render();
 }
 
 void Koopas::OnNoCollision(DWORD dt)
@@ -212,7 +217,7 @@ Koopas::Koopas(float x, float y, int Level) :CGameObject(x, y)
 {
 	level = Level;
 	SetState(KOOPAS_STATE_WALKING);
-	
+	 boxHidden = new BoxHidden(x, y);
 	IsAttackedByTail = isHold = false;
 	ay = KOOPAS_GRAVITY;
 }

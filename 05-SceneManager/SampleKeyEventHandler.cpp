@@ -53,7 +53,9 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 				mario->SetLevel(MARIO_LEVEL_RACOON);
 				break;
 			
-			
+			/*case DIK_4:
+				CGame::GetInstance()->InitiateSwitchScene(1);*/
+				break;
 			case DIK_B:
 				mario->SetState(MARIO_STATE_FLYING);
 				break;

@@ -168,6 +168,9 @@
     <ClCompile Include="ColorBox.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="BoxHidden.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="ColorBox.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxHidden.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

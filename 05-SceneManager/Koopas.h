@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "BoxHidden.h"
 #define KOOPAS_GRAVITY 0.0007f
 #define KOOPAS_WALKING_SPEED 0.03f
 #define KOOPAS_NAVBOX_DISTANCE 2
@@ -91,7 +92,6 @@ protected:
 	}
 public:
 	float ay;
-	
 	bool isHold;
 	int level;
 	bool IsAttack;
@@ -101,4 +101,5 @@ public:
 		if (y > KOOPAS_DROP_OUT_Y)
 			y = KOOPAS_DROP_OUT_COMPLETE;
 	};
+	BoxHidden* boxHidden;
 };
