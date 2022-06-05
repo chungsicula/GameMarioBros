@@ -105,15 +105,15 @@ void CPlayScene::_ParseSection_ANIMATIONS(string line)
 void CPlayScene::_ParseSection_MAP(string line) {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 9) return;
-	int IDtex = atoi(tokens[0].c_str());
-	wstring mapPath = ToWSTR(tokens[1]);
-	int mapRow = atoi(tokens[2].c_str());
-	int mapColumn = atoi(tokens[3].c_str());
-	int tileRow = atoi(tokens[4].c_str());
+	int IDtex = atoi(tokens[0].c_str()); //id texture
+	wstring mapPath = ToWSTR(tokens[1]);  //link hình
+	int mapRow = atoi(tokens[2].c_str());   //height map 42x16=672
+	int mapColumn = atoi(tokens[3].c_str()); //width map 176x16=2816
+	int tileRow = atoi(tokens[4].c_str()); // count tile map1-1.png texture
 	int tileColumn = atoi(tokens[5].c_str());
 	int tileWidth = atoi(tokens[6].c_str());
 	int tileHeight = atoi(tokens[7].c_str());
-	int checkWM = atoi(tokens[8].c_str());
+	int checkWM = atoi(tokens[8].c_str()); //check worldmap (0)
 
 	map = new Map(IDtex, mapPath.c_str(), mapRow, mapColumn, tileRow, tileColumn, tileWidth, tileHeight);
 	if (checkWM != 0) map->IsWorldMap = true;

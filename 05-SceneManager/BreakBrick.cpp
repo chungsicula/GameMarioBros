@@ -6,10 +6,10 @@ void BreakableBrick::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	if (state == BREAKABLE_BRICK_STATE_BREAK_DOWN)
 	{
-		piece1->Render();
+		/*piece1->Render();
 		piece2->Render();
 		piece3->Render();
-		piece4->Render();
+		piece4->Render();*/
 	}
 	else if (objType == OBJECT_TYPE_COIN)
 	{

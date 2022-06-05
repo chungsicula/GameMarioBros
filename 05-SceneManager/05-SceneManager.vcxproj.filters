@@ -171,6 +171,9 @@
     <ClCompile Include="BoxHidden.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="MapUpdate.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -301,6 +304,9 @@
     </ClInclude>
     <ClInclude Include="BoxHidden.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="MapUpdate.h">
+      <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
