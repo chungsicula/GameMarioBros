@@ -58,10 +58,10 @@ void MapUpdate::Draw()
 	{
 		int beginVertical = (int)Camera::GetInstance()->GetCamPosX() / 16;
 		if (beginVertical < 0) { beginVertical = 0; }
-		int endVertical = ((int)Camera::GetInstance()->GetCamPosX() + CGame::GetInstance()->GetBackBufferWidth()) / 16;
+		int endVertical = ((int)Camera::GetInstance()->GetCamPosX() + CGame::GetInstance()->GetBackBufferWidth()) / 16+1;
 
 		int beginHorizon = (int)Camera::GetInstance()->GetCamPosY() / 16;
-		int endHorizon = ((int)Camera::GetInstance()->GetCamPosY() + CGame::GetInstance()->GetBackBufferWidth()) / 16;
+		int endHorizon = ((int)Camera::GetInstance()->GetCamPosY() + CGame::GetInstance()->GetBackBufferWidth()) / 16+1;
 		for (int i = beginHorizon; i < endHorizon; i++)
 		{
 			for (int j = beginVertical; j < endVertical; j++)

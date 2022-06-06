@@ -7,7 +7,7 @@
 #include "Coin.h"
 #include "Platform.h"
 #include "Camera.h"
-#include "Map.h"
+#include "MapUpdate.h"
 #include "ColorBox.h"
 #include "Koopas.h"
 #include "Pipe.h"

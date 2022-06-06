@@ -126,9 +126,6 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Map</Filter>
-    </ClCompile>
     <ClCompile Include="debug.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -262,9 +259,6 @@
     </ClInclude>
     <ClInclude Include="SampleKeyEventHandler.h">
       <Filter>Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Map</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
       <Filter>Game</Filter>
