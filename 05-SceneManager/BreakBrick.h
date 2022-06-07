@@ -34,10 +34,10 @@ public:
 	bool haveButton = false;
 	ButtonP* buttonP;
 	bool buttonCreated, isBreakDown;
-	/*BreakableBrickEffect* piece1;
+	BreakableBrickEffect* piece1;
 	BreakableBrickEffect* piece2;
 	BreakableBrickEffect* piece3;
-	BreakableBrickEffect* piece4;*/
+	BreakableBrickEffect* piece4;
 	BreakableBrick(float x, float y, bool HaveButton) : CGameObject(x, y) {
 		startY = y;
 		haveButton = HaveButton;
@@ -47,10 +47,10 @@ public:
 		InitCoin = isBreakDown = false;
 		ChangeBackToBrickTime = 0;
 		isBlocking = 1;
-	/*	piece1 = new BreakableBrickEffect(x, y, -INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT * 2);
+		piece1 = new BreakableBrickEffect(x, y, -INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT * 2);
 		piece2 = new BreakableBrickEffect(x, y, INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT * 2);
 		piece3 = new BreakableBrickEffect(x, y, -INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT);
-		piece4 = new BreakableBrickEffect(x, y, INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT);*/
+		piece4 = new BreakableBrickEffect(x, y, INNIT_VX_BREAKABLE_BRICK_EFFECT, -INNIT_VY_BREAKABLE_BRICK_EFFECT);
 		buttonP = new ButtonP();
 	}
 	BreakableBrick(float x, float y, bool HaveButton, ButtonP* button) :CGameObject(x, y) {
@@ -100,10 +100,10 @@ public:
 		}
 		if (state == BREAKABLE_BRICK_STATE_BREAK_DOWN)
 		{
-			/*piece1->Update(dt);
+			piece1->Update(dt);
 			piece2->Update(dt);
 			piece3->Update(dt);
-			piece4->Update(dt);*/
+			piece4->Update(dt);
 		}
 	}
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {
