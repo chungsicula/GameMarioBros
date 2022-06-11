@@ -52,6 +52,7 @@ public:
         else aniId = ID_ANI_LEAF_FALLING_LEFT;
         if (animations->Get(aniId))
             animations->Get(aniId)->Render(x, y);
+
     }
     void GetBoundingBox(float& left, float& top, float& right, float& bottom) {
         left = x - LEAF_WIDTH / 2;
