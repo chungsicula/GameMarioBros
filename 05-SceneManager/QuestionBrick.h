@@ -20,7 +20,7 @@
 #define ID_ANI_QUESTION_BRICK_HAVENOITEM	70001
 
 #define QUESTION_BRICK_VY	0.05f
-#define COIN_UP_VY	0.1f
+#define COIN_UP_VY	0.05f
 class QuestionBrick : public CGameObject {
 public:
 	float startY;
@@ -30,7 +30,8 @@ public:
 	CCoin* coin;
 	bool InitCoin;
 	ULONGLONG coinUpTime;
-
+	virtual int IsCollidable() { return 1; };
+	virtual int IsBlocking() { return 1; }
 	QuestionBrick(float x, float y, int item) : CGameObject(x, y) {
 		startY = y;
 		InitCoin = readyInnitItem = innitItemSuccess = false;
@@ -53,18 +54,10 @@ public:
 		{
 			if (coinUpTime == 0)
 			{
-				coin = new CCoin(x, y - 16, 1);
-				if (startY - y > QUESTION_BRICK_UP) {
-					coin->y = y + 30; coin->SetSpeed(0, -COIN_UP_VY);
-				}
-				else {
-					coin->y = y - 50;
-					coin->SetSpeed(0, COIN_UP_VY);
-				}
-				
-				// coin->SetSpeed(0, COIN_UP_VY);
-				
+				coin = new CCoin(x, y - 50, 1);
+				coin->SetSpeed(0, 0.001f * dt);
 				coinUpTime = GetTickCount64();
+				coin->SetSpeed(0, COIN_UP_VY);
 			}
 			else if (GetTickCount64() - coinUpTime >= 700) {
 				coinUpTime = 0;
@@ -74,7 +67,6 @@ public:
 		}
 
 		if (!readyInnitItem)y += vy * dt;
-
 	}
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {
 		l = x - BRICK_BBOX_WIDTH / 2;

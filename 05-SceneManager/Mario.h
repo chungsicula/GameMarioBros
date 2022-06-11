@@ -272,7 +272,7 @@ public:
 	void Reset()
 	{
 		y = 240;
-		level = MARIO_LEVEL_BIG;
+		level = MARIO_LEVEL_SMALL;
 		state = MARIO_STATE_IDLE;
 	}
 	bool isFlying = false;
@@ -295,7 +295,7 @@ public:
 		speedStack = 0;
 		AttackTime = SpeedStackTime = 0;
 		tail = new MarioTail();
-		level = MARIO_LEVEL_RACOON;
+		level = MARIO_LEVEL_SMALL;
 		StartY = 0;
 		FallingTime = effectTime = 0;
 		koopasHold = new Koopas(-10, -10, 1);

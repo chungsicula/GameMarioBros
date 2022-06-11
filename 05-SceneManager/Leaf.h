@@ -60,7 +60,7 @@ public:
         right = left + LEAF_WIDTH;
         bottom = top + LEAF_HEIGHT;
     }
-    void SetState(int state) {
+    void SetState(int state) { 
         switch (state) {
         case LEAF_STATE_INNIT:
             vy = -LEAF_INNIT_SPEED;

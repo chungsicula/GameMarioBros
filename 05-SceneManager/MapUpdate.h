@@ -18,7 +18,7 @@ class MapUpdate
 	int Tile_Width, Tile_Height;
 	int Id;
 
-	int tilemap[300][300];
+	int tilemap[400][400];
 
 public:
 	bool IsWorldMap; //check world map
