@@ -80,7 +80,7 @@ public:
 		switch (state) {
 		case QUESTION_BRICK_STATE_START_INNIT:
 			if (vy == 0)
-				vy = -QUESTION_BRICK_VY;
+				vy = -QUESTION_BRICK_VY; 
 			break;
 		case QUESTION_BRICK_STATE_INNITED:
 			vy = 0;

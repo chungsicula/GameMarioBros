@@ -2,6 +2,7 @@
 #include "debug.h"
 #include "Goomba.h"
 #include "QuestionBrick.h"
+#include "BreakBrick.h"
 void Koopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (!isHold)
@@ -129,7 +130,8 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
-
+	else if (dynamic_cast<BreakableBrick*>(e->obj))
+		OnCollisionWithBreakableBrick(e);
 	
 }
 
@@ -172,7 +174,14 @@ void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 		}
 	}
 	
-	
+}
+void Koopas::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e)
+{
+	BreakableBrick* breakBrick = dynamic_cast<BreakableBrick*>(e->obj);
+	if (e->nx != 0 && state == KOOPAS_STATE_INSHELL_ATTACK && !breakBrick->haveButton && breakBrick->objType != OBJECT_TYPE_COIN)
+	{
+		breakBrick->SetState(BREAKABLE_BRICK_STATE_BREAK_DOWN);
+	}
 }
 void Koopas::GetKoopasAni(int& IdAni)
 {
