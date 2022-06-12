@@ -30,8 +30,10 @@ public:
 	CCoin* coin;
 	bool InitCoin;
 	ULONGLONG coinUpTime;
+	int blockcheck = 1;
 	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 1; }
+	virtual int IsBlocking() { return blockcheck; }
+	
 	QuestionBrick(float x, float y, int item) : CGameObject(x, y) {
 		startY = y;
 		InitCoin = readyInnitItem = innitItemSuccess = false;

@@ -123,15 +123,15 @@ void Koopas::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 			nx = -nx;
 		}
 	}
-	
-	else if (dynamic_cast<QuestionBrick*>(e->obj))
+	if (dynamic_cast<QuestionBrick*>(e->obj))
 		OnCollisionWithQuestionBrick(e);
-	else if (dynamic_cast<Koopas*>(e->obj))
-		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CGoomba*>(e->obj))
 		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<Koopas*>(e->obj))
+		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<BreakableBrick*>(e->obj))
 		OnCollisionWithBreakableBrick(e);
+	
 	
 }
 
@@ -163,17 +163,17 @@ void Koopas::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 
 void Koopas::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 {
-	QuestionBrick* QBrick = dynamic_cast<QuestionBrick*>(e->obj);
+	
+	QuestionBrick* questionBrick = dynamic_cast<QuestionBrick*>(e->obj);
 
 	//Check qbrick
-	
-	if (state == KOOPAS_STATE_INSHELL_ATTACK)
-	{
-		if (!QBrick->innitItemSuccess) {
-			QBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
+	if (!questionBrick->innitItemSuccess && state == KOOPAS_STATE_INSHELL_ATTACK) {
+		if (e->nx != 0) {
+			questionBrick->blockcheck = 0;
+			questionBrick->SetState(QUESTION_BRICK_STATE_START_INNIT);
 		}
+			
 	}
-	
 }
 void Koopas::OnCollisionWithBreakableBrick(LPCOLLISIONEVENT e)
 {
