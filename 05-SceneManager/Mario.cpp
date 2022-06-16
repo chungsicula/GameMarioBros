@@ -181,6 +181,107 @@ void CMario::OnCollisionWithQuestionBrick(LPCOLLISIONEVENT e)
 	}
 }
 
+//void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
+//{
+//	Koopas* koopas = dynamic_cast<Koopas*>(e->obj);
+//	if (e->ny < 0)
+//	{
+//		if (!isOnPlatform)
+//		{
+//			if (koopas->level < PARA_KOOPAS)
+//			{
+//
+//				switch (koopas->GetState())
+//				{
+//				case KOOPAS_STATE_WALKING:
+//					koopas->SetState(KOOPAS_STATE_INSHELL);
+//					vy = -MARIO_JUMP_DEFLECT_SPEED;
+//					break;
+//				case KOOPAS_STATE_INSHELL:
+//					koopas->nx = nx;
+//					koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
+//					vy = -MARIO_JUMP_DEFLECT_SPEED;
+//					break;
+//				case KOOPAS_STATE_INSHELL_ATTACK:
+//					koopas->SetState(KOOPAS_STATE_INSHELL);
+//					vy = -MARIO_JUMP_DEFLECT_SPEED;
+//					break;
+//				default:
+//					break;
+//				}
+//			}
+//			else {
+//				vy = -MARIO_JUMP_DEFLECT_SPEED;
+//				koopas->SetSpeed(0, 0);
+//				koopas->level = NORMAL_KOOPAS;
+//				koopas->SetState(KOOPAS_STATE_WALKING);
+//			}
+//		}
+//	}
+//	else // hit by Koopas
+//	{
+//		/*if (untouchable == 0)
+//		{
+//			if (koopas->IsAttack)
+//			{
+//				HandleMarioIsAttacked();
+//			}
+//		}
+//		if (e->nx != 0 && !koopas->IsAttack)
+//		{
+//			if (abs(ax) != MARIO_ACCEL_RUN_X)
+//			{
+//				koopas->nx = nx;
+//				SetState(MARIO_STATE_KICKKOOPAS);
+//				koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
+//			}
+//			else if (abs(ax) == MARIO_ACCEL_RUN_X)
+//			{
+//				koopas->SetSpeed(0, 0);
+//				isHoldingKoopas = true;
+//				koopas->isHold = true;
+//				koopasHold = dynamic_cast<Koopas*>(e->obj);
+//				koopasHold->nx = nx;
+//				float koopasY;
+//				if (level == MARIO_LEVEL_SMALL)
+//					koopasY = y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+//				else koopasY = y;
+//				koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
+//				koopasHold->SetState(KOOPAS_STATE_ATTACKED_BY_TAIL);
+//			}
+//		}*/
+//		if (untouchable == 0)
+//		{
+//			if (koopas->IsAttack)
+//			{
+//				HandleMarioIsAttacked();
+//			}
+//		}if (e->nx != 0 && !koopas->IsAttack)
+//		{
+//			if (abs(ax) != MARIO_ACCEL_RUN_X)
+//			{
+//				koopas->nx = nx;
+//				SetState(MARIO_STATE_KICKKOOPAS);
+//				koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
+//			}
+//			else if (abs(ax) == MARIO_ACCEL_RUN_X)
+//			{
+//				//	if (e->nx != 0 && !koopas->IsAttack) {
+//				koopas->SetSpeed(0, 0);
+//				isHoldingKoopas = true;
+//				koopas->isHold = true;
+//				koopasHold = dynamic_cast<Koopas*>(e->obj);
+//				koopasHold->nx = nx;
+//				float koopasY;
+//				if (level == MARIO_LEVEL_SMALL)
+//					koopasY = y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+//				else koopasY = y;
+//				koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
+//				SetState(MARIO_STATE_HOLD_KOOPAS);
+//			}
+//		}
+//	}
+//}
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
 	Koopas* koopas = dynamic_cast<Koopas*>(e->obj);
@@ -220,7 +321,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else // hit by Koopas
 	{
-		/*if (untouchable == 0)
+		if (untouchable == 0)
 		{
 			if (koopas->IsAttack)
 			{
@@ -241,48 +342,10 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 				isHoldingKoopas = true;
 				koopas->isHold = true;
 				koopasHold = dynamic_cast<Koopas*>(e->obj);
-				koopasHold->nx = nx;
-				float koopasY;
-				if (level == MARIO_LEVEL_SMALL)
-					koopasY = y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
-				else koopasY = y;
-				koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
-				koopasHold->SetState(KOOPAS_STATE_ATTACKED_BY_TAIL);
-			}
-		}*/
-		if (untouchable == 0)
-		{
-			if (koopas->IsAttack)
-			{
-				HandleMarioIsAttacked();
-			}
-		}if (e->nx != 0 && !koopas->IsAttack)
-		{
-			if (abs(ax) != MARIO_ACCEL_RUN_X)
-			{
-				koopas->nx = nx;
-				SetState(MARIO_STATE_KICKKOOPAS);
-				koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
-			}
-			else if (abs(ax) == MARIO_ACCEL_RUN_X)
-			{
-				//	if (e->nx != 0 && !koopas->IsAttack) {
-				koopas->SetSpeed(0, 0);
-				isHoldingKoopas = true;
-				koopas->isHold = true;
-				koopasHold = dynamic_cast<Koopas*>(e->obj);
-				koopasHold->nx = nx;
-				float koopasY;
-				if (level == MARIO_LEVEL_SMALL)
-					koopasY = y - (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
-				else koopasY = y;
-				koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
-				SetState(MARIO_STATE_HOLD_KOOPAS);
 			}
 		}
 	}
 }
-
 void CMario::OnCollisionWithItem(LPCOLLISIONEVENT e)
 {
 	if (dynamic_cast<Mushroom*>(e->obj))
