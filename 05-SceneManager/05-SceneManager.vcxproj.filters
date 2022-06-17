@@ -171,6 +171,12 @@
     <ClCompile Include="MapUpdate.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="OverWorldScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectForRenderOverworld.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -301,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="MapUpdate.h">
       <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="OverWorldScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectForRenderOverworld.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

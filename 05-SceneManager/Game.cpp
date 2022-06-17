@@ -8,7 +8,7 @@
 #include "Animations.h"
 #include "PlayScene.h"
 #include "IntroScene.h"
-
+#include "OverWorldScene.h"
 CGame* CGame::__instance = NULL;
 
 /*
@@ -458,14 +458,31 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);   // file: ASCII format (single-byte char) => Wide Char
 
-	if (id != 1)
-	{
+	//if (id != 1)
+	//{
+	//	LPSCENE scene = new CPlayScene(id, path);
+	//	scenes[id] = scene;
+	//}
+	//else
+	//{
+	//	LPSCENE scene = new IntroScene(id, path);
+	//	//LPSCENE scene = new OverWorldScene(id, path);
+	//	scenes[id] = scene;
+	//}
+	if (id == 0) {
+		LPSCENE scene = new CWorldMapScene(id, path);
+		scenes[id] = scene;
+	}else
+	if (id == 2) {
 		LPSCENE scene = new CPlayScene(id, path);
 		scenes[id] = scene;
 	}
-	else
-	{
+	else if (id == 1) {
 		LPSCENE scene = new IntroScene(id, path);
+		scenes[id] = scene;
+	}
+	else if (id == 3) {
+		LPSCENE scene = new CWorldMapScene(id, path);
 		scenes[id] = scene;
 	}
 }
