@@ -1051,7 +1051,7 @@ void CMario::SetState(int state)
 		IsKickKoopas = true;
 		break;
 	case MARIO_STATE_HOLD_KOOPAS:
-		isHoldingKoopas = true;
+		/*isHoldingKoopas = true;
 		koopasHold->isHold = true;
 		koopasHold->nx = nx;
 		float koopasY;
@@ -1060,7 +1060,13 @@ void CMario::SetState(int state)
 		else koopasY = y;
 		koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
 		koopasHold->SetState(KOOPAS_STATE_INSHELL_ATTACK);
-		break;
+		break;*/
+		isHoldingKoopas = true;
+		koopasHold->isHold = true;
+		koopasHold->nx = nx;
+		koopasHold->SetSpeed(0, 0); float koopasY; koopasY = y;
+		koopasHold->SetPosition(koopasHold->x + KOOPAS_BBOX_WIDTH / 8, koopasY);
+		//break;
 	case MARIO_STATE_ATTACK:
 		if (level == MARIO_LEVEL_RACOON)
 		{
