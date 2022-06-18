@@ -78,5 +78,5 @@ public:
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 
-typedef CWorldMapScene* LPWORLDMAPSCENE;
+typedef CWorldMapScene* LPPLAYSCENEE;
 

@@ -19,6 +19,7 @@
 
 #include "LastItemObject.h"
 #include "Camera.h"
+#include "SampleKeyEventHandler.h"
 //#include "HUD.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
@@ -321,29 +322,43 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else // hit by Koopas
 	{
-		if (untouchable == 0)
+		/*if (untouchable == 0)
 		{
 			if (koopas->IsAttack)
 			{
 				HandleMarioIsAttacked();
 			}
-		}
-		if (e->nx != 0 && !koopas->IsAttack)
-		{
-			if (abs(ax) != MARIO_ACCEL_RUN_X)
+		}*/
+		
+			/*if (abs(ax) != MARIO_ACCEL_RUN_X)
 			{
 				koopas->nx = nx;
 				SetState(MARIO_STATE_KICKKOOPAS);
 				koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
 			}
-			else if (abs(ax) == MARIO_ACCEL_RUN_X)
+			else if (abs(ax) == MARIO_ACCEL_RUN_X || abs(ax)== MARIO_ACCEL_WALK_X)
+			{
+				koopas->SetSpeed(0, 0);
+				isHoldingKoopas = true;
+				koopas->isHold = true;
+				koopasHold = dynamic_cast<Koopas*>(e->obj);
+			}*/
+			
+			if ((koopas->IsAttack==false&& (CGame::GetInstance()->IsKeyDown(DIK_RIGHT)|| CGame::GetInstance()->IsKeyDown(DIK_LEFT))))
 			{
 				koopas->SetSpeed(0, 0);
 				isHoldingKoopas = true;
 				koopas->isHold = true;
 				koopasHold = dynamic_cast<Koopas*>(e->obj);
 			}
-		}
+			else
+			{
+				koopas->nx = nx;
+				SetState(MARIO_STATE_KICKKOOPAS);
+				koopas->SetState(KOOPAS_STATE_INSHELL_ATTACK);
+				
+			}
+		
 	}
 }
 void CMario::OnCollisionWithItem(LPCOLLISIONEVENT e)

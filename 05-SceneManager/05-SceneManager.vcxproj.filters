@@ -177,6 +177,9 @@
     <ClCompile Include="ObjectForRenderOverworld.cpp">
       <Filter>Object</Filter>
     </ClCompile>
+    <ClCompile Include="CKeyEventWorldMap.cpp">
+      <Filter>Keyboard</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="ObjectForRenderOverworld.h">
       <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyEventWorldMap.h">
+      <Filter>Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

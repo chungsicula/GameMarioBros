@@ -298,6 +298,7 @@ void CWorldMapScene::Update(DWORD dt)
 	//Update camera to follow mario
 	/*Camera::GetInstance()->Update(dt);
 	PurgeDeletedObjects();*/
+	PurgeDeletedObjects();
 }
 
 void CWorldMapScene::Render()

@@ -151,6 +151,7 @@
     <ClCompile Include="BrickEffect.cpp" />
     <ClCompile Include="ButtonP.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CKeyEventWorldMap.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ColorBox.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="BrickEffect.h" />
     <ClInclude Include="ButtonP.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CKeyEventWorldMap.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="ColorBox.h" />

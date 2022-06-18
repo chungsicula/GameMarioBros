@@ -550,7 +550,22 @@ void CGame::SwitchScene()
 	this->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }
+void CGame::SwitchSceneUpdate(int sceneId)
+{
+	//if (next_scene < 0 || next_scene == current_scene) return;
+	next_scene = sceneId;
+	DebugOut(L"[INFO] Switching to scene %d\n", next_scene);
 
+	scenes[current_scene]->Unload();
+
+	CSprites::GetInstance()->Clear();
+	CAnimations::GetInstance()->Clear();
+
+	current_scene = next_scene;
+	LPSCENE s = scenes[next_scene];
+	this->SetKeyHandler(s->GetKeyEventHandler());
+	s->Load();
+}
 void CGame::InitiateSwitchScene(int scene_id)
 {
 	next_scene = scene_id;
