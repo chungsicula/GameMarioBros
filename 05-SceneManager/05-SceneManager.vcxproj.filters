@@ -180,6 +180,12 @@
     <ClCompile Include="CKeyEventWorldMap.cpp">
       <Filter>Keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="CMarioWorldMap.cpp">
+      <Filter>Mario</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -319,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="CKeyEventWorldMap.h">
       <Filter>Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="CMarioWorldMap.h">
+      <Filter>Mario</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

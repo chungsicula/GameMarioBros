@@ -41,41 +41,20 @@ public:
 
 	LPGAMEOBJECT GetPlayer() { return player; }
 
-	void AddItemToQBrick(LPGAMEOBJECT obj, int index) {
-		QuestionBrick* QBrick = dynamic_cast<QuestionBrick*>(obj);
-		CMario* mario = dynamic_cast<CMario*>(player);
-		float BrickX, BrickY;
-		obj->GetPosition(BrickX, BrickY);
-
-		if (QBrick->readyInnitItem)
-		{
-			if (QBrick->Item > 1)
-			{
-				if (mario->GetMarioLevel() == MARIO_LEVEL_SMALL)
-				{
-					Mushroom* mushroom = new Mushroom(BrickX, BrickY);
-					mushroom->SetState(MUSHROOOM_STATE_BEING_INNITED);
-					objects[index] = mushroom;
-					objects.push_back(QBrick);
-				}
-				else
-				{
-					Leaf* leaf = new Leaf(BrickX, BrickY);
-					leaf->SetState(LEAF_STATE_INNIT);
-					objects.push_back(leaf);
-				}
-			}
-			else QBrick->InitCoin = true;
-
-			QBrick->innitItemSuccess = true;
-
-		}
-	}
+	
 
 	void Clear();
 	void PurgeDeletedObjects();
 
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
+};
+class CWorldSceneKeyHandler : public CSceneKeyHandler
+{
+public:
+	virtual void KeyState(BYTE* states);
+	virtual void OnKeyDown(int KeyCode);
+	virtual void OnKeyUp(int KeyCode);
+	CWorldSceneKeyHandler(CScene* s) :CSceneKeyHandler(s) {};
 };
 
 typedef CWorldMapScene* LPPLAYSCENEE;

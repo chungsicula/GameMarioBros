@@ -1,5 +1,5 @@
 [SETTINGS]
-start	2
+start	3
 width	320
 height	240
 
@@ -31,3 +31,4 @@ height	240
 7000	map\HiddenMap.png
 9001	map\worldmap.png
 53	textures\overworld.png
+54	textures\worldmap_sprite.png
