@@ -2,13 +2,14 @@
 
 #include "debug.h"
 
-CStone::CStone(int id, bool left, bool top, bool right, bool bottom)
+CStone::CStone(int id, bool left, bool top, bool right, bool bottom,bool isStation)
 {
 	sceneId = id;
 	canLeft = left;
 	canTop = top;
 	canRight = right;
 	canBottom = bottom;
+	isStation = isStation;
 }
 void CStone::Render()
 {

@@ -20,7 +20,7 @@
 #include "LastItemObject.h"
 #include "Camera.h"
 #include "SampleKeyEventHandler.h"
-//#include "HUD.h"
+#include "MushroomGreen.h"
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!goInHidden && !goOutHidden)
@@ -65,6 +65,13 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						coObjects->at(i)->Delete();
 					}
 					else if (dynamic_cast<Leaf*>(coObjects->at(i)))
+					{
+						if (level == MARIO_LEVEL_SMALL)
+							y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+						SetState(MARIO_STATE_TRANSFORM_RACOON);
+						coObjects->at(i)->Delete();
+					}
+					else if (dynamic_cast<MushroomGreen*>(coObjects->at(i)))
 					{
 						if (level == MARIO_LEVEL_SMALL)
 							y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
@@ -116,7 +123,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e, DWORD dt)
 		OnCollisionWithPlant(e);
 	else if (dynamic_cast<PiranhaPlant*>(e->obj))
 		OnCollisionWithPlant(e);
-	else if (dynamic_cast<Mushroom*>(e->obj) || dynamic_cast<Leaf*>(e->obj))
+	else if (dynamic_cast<Mushroom*>(e->obj) || dynamic_cast<Leaf*>(e->obj)|| dynamic_cast<MushroomGreen*>(e->obj))
 		OnCollisionWithItem(e);
 	else if (dynamic_cast<BreakableBrick*>(e->obj))
 		OnCollisionWithBreakableBrick(e);
@@ -344,7 +351,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 				koopasHold = dynamic_cast<Koopas*>(e->obj);
 			}*/
 			
-			if ((koopas->IsAttack==false&& (CGame::GetInstance()->IsKeyDown(DIK_RIGHT)|| CGame::GetInstance()->IsKeyDown(DIK_LEFT))))
+			if ((koopas->IsAttack==false&& (CGame::GetInstance()->IsKeyDown(DIK_A))))
 			{
 				koopas->SetSpeed(0, 0);
 				isHoldingKoopas = true;
@@ -371,6 +378,13 @@ void CMario::OnCollisionWithItem(LPCOLLISIONEVENT e)
 		e->obj->Delete();
 	}
 	else if (dynamic_cast<Leaf*>(e->obj))
+	{
+		if (level == MARIO_LEVEL_SMALL)
+			y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+		SetState(MARIO_STATE_TRANSFORM_RACOON);
+		e->obj->Delete();
+	}
+	else if (dynamic_cast<MushroomGreen*>(e->obj))
 	{
 		if (level == MARIO_LEVEL_SMALL)
 			y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;

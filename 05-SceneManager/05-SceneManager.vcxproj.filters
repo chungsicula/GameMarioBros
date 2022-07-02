@@ -186,6 +186,9 @@
     <ClCompile Include="Stone.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="MushroomGreen.cpp">
+      <Filter>Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QuestionBrick.h">
@@ -269,9 +272,6 @@
     <ClInclude Include="Collision.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Keyboard</Filter>
-    </ClInclude>
     <ClInclude Include="SampleKeyEventHandler.h">
       <Filter>Keyboard</Filter>
     </ClInclude>
@@ -331,6 +331,12 @@
     </ClInclude>
     <ClInclude Include="Stone.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="MushroomGreen.h">
+      <Filter>Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

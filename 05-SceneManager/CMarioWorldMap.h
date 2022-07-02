@@ -27,4 +27,5 @@ public:
 	void GoTop();
 	void GoRight();
 	void GoBottom();
+	void GoStation();
 };

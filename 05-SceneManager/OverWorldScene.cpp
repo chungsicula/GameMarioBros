@@ -193,7 +193,8 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 		bool top = atoi(tokens[6].c_str()) == 1 ? true : false;
 		bool right = atoi(tokens[7].c_str()) == 1 ? true : false;
 		bool bottom = atoi(tokens[8].c_str()) == 1 ? true : false;
-		obj = new CStone(id, left, top, right, bottom);
+		bool isStation= atoi(tokens[9].c_str()) == 1 ? true : false;
+		obj = new CStone(id, left, top, right, bottom, isStation);
 		break;
 	}
 	case 90:
@@ -365,7 +366,7 @@ void CWorldSceneKeyHandler::OnKeyDown(int KeyCode)
 		mario->GoBottom();
 		break;
 	case DIK_S:
-		CGame::GetInstance()->InitiateSwitchScene(2);
+		mario->GoStation();
 		break;
 	default:
 		break;

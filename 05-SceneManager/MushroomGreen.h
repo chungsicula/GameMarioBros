@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "debug.h"
 #include "GameObject.h"
 
@@ -12,21 +13,20 @@
 #define MUSHROOOM_STATE_BEING_INNITED   1
 #define MUSHROOOM_STATE_INNITED   2
 
-#define ID_ANI_MUSHROOM 80000
 #define ID_ANI_MUSHROOM_GREEN 81003
-class Mushroom :
+class MushroomGreen :
     public CGameObject
 {
 protected:
     bool isInnited;
     float startY;
     int ItemType;
-    
+
 public:
-    Mushroom(float x, float y) :CGameObject(x, y) {
+    MushroomGreen(float x, float y) :CGameObject(x, y) {
         isInnited = false;
         startY = y;
-        ItemType = 1;
+        ItemType = 3;
         isitem = true;
     }
     void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects) {
@@ -36,7 +36,7 @@ public:
         }
         else if (vy != 0)
         {
-         
+
             if (startY - y > MUSHROOM_HEIGHT + 1)
                 SetState(MUSHROOOM_STATE_INNITED);
         }
@@ -61,10 +61,10 @@ public:
     }
     void Render() {
         CAnimations* animations = CAnimations::GetInstance();
-      if (animations->Get(ID_ANI_MUSHROOM))
-            animations->Get(ID_ANI_MUSHROOM)->Render(x, y);
+        if (animations->Get(ID_ANI_MUSHROOM_GREEN))
+            animations->Get(ID_ANI_MUSHROOM_GREEN)->Render(x, y);
         else RenderBoundingBox();
-      
+
     }
     void GetBoundingBox(float& left, float& top, float& right, float& bottom) {
         left = x - MUSHROOM_WIDTH / 2;

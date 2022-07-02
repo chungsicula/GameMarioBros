@@ -40,12 +40,12 @@ void CMarioWorldMap::OnCollisionWithStone(CGameObject* obj, vector<LPGAMEOBJECT>
 		if ((vx > 0 && x >= (stone->x) - 3)||(vx < 0 && x <= (stone->x) - 3))
 		{
 			vx = 0;
-			currentStone = stone; CGame::GetInstance()->InitiateSwitchScene(2);
+			currentStone = stone; 
 		}
 		if ((vy > 0 && y >= (stone->y) - 3)|| (vy < 0 && y <= (stone->y) - 3))
 		{
 			vy = 0;
-			currentStone = stone; CGame::GetInstance()->InitiateSwitchScene(2);
+			currentStone = stone; 
 		}
 	}
 }
@@ -64,6 +64,7 @@ void CMarioWorldMap::GoTop()
 	{
 		vy = -0.12f;
 	}
+	
 }
 
 void CMarioWorldMap::GoRight()
@@ -72,6 +73,7 @@ void CMarioWorldMap::GoRight()
 	{
 		vx = 0.12f;
 	}
+	
 }
 
 void CMarioWorldMap::GoBottom()
@@ -80,8 +82,12 @@ void CMarioWorldMap::GoBottom()
 	{
 		vy = 0.12f;
 	}
+	
 }
-
+void CMarioWorldMap::GoStation()
+{
+	CGame::GetInstance()->InitiateSwitchScene(2);
+}
 void CMarioWorldMap::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
 	l = this->x;

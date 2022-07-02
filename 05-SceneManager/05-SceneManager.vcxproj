@@ -171,6 +171,7 @@
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="MarioTail.cpp" />
     <ClCompile Include="Mushroom.cpp" />
+    <ClCompile Include="MushroomGreen.cpp" />
     <ClCompile Include="ObjectForRenderOverworld.cpp" />
     <ClCompile Include="ObjectRender.cpp" />
     <ClCompile Include="OverWorldScene.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Mario.h" />
     <ClInclude Include="MarioTail.h" />
     <ClInclude Include="Mushroom.h" />
+    <ClInclude Include="MushroomGreen.h" />
     <ClInclude Include="ObjectForRenderOverworld.h" />
     <ClInclude Include="ObjectRender.h" />
     <ClInclude Include="OverWorldScene.h" />
